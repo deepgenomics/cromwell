@@ -24,7 +24,13 @@ class GcpBatchMachineConstraintsSpec extends AnyFlatSpec with CromwellTimeoutSpe
 
   it should "generate valid machine types" in {
     val validTypes = Table(
-      ("memory", "cpu", "cpuPlatformOption", "standardMachineTypeOption", "googleLegacyMachineSelection", "machineTypeString"),
+      ("memory",
+       "cpu",
+       "cpuPlatformOption",
+       "standardMachineTypeOption",
+       "googleLegacyMachineSelection",
+       "machineTypeString"
+      ),
       // Already ok tuple
       (MemorySize(1024, MemoryUnit.MB), refineMV[Positive](1), None, None, false, "custom-1-1024"),
       // CPU must be even (except if it's 1)
@@ -116,15 +122,16 @@ class GcpBatchMachineConstraintsSpec extends AnyFlatSpec with CromwellTimeoutSpe
       (MemorySize(2, MemoryUnit.GB), refineMV[Positive](33), None, Option("a2-highgpu-1g"), false, "a2-highgpu-1g")
     )
 
-    forAll(validTypes) { (memory, cpu, cpuPlatformOption, standardMachineTypeOption, googleLegacyMachineSelection, expected) =>
-      GcpBatchMachineConstraints.machineType(
-        memory = memory,
-        cpu = cpu,
-        cpuPlatformOption = cpuPlatformOption,
-        standardMachineTypeOption = standardMachineTypeOption,
-        googleLegacyMachineSelection = googleLegacyMachineSelection,
-        jobLogger = mock[JobLogger]
-      ) shouldBe expected
+    forAll(validTypes) {
+      (memory, cpu, cpuPlatformOption, standardMachineTypeOption, googleLegacyMachineSelection, expected) =>
+        GcpBatchMachineConstraints.machineType(
+          memory = memory,
+          cpu = cpu,
+          cpuPlatformOption = cpuPlatformOption,
+          standardMachineTypeOption = standardMachineTypeOption,
+          googleLegacyMachineSelection = googleLegacyMachineSelection,
+          jobLogger = mock[JobLogger]
+        ) shouldBe expected
     }
   }
 }
