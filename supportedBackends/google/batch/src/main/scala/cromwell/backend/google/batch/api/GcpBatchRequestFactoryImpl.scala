@@ -262,9 +262,11 @@ class GcpBatchRequestFactoryImpl()(implicit gcsTransferConfiguration: GcsTransfe
     val machineType = GcpBatchMachineConstraints.machineType(runtimeAttributes.memory,
                                                              runtimeAttributes.cpu,
                                                              cpuPlatformOption = runtimeAttributes.cpuPlatform,
+                                                             standardMachineTypeOption = runtimeAttributes.standardMachineType,
+                                                             googleLegacyMachineSelection = false,
                                                              jobLogger = jobLogger
     )
-    val instancePolicy =
+    val instancePolicy = 
       createInstancePolicy(cpuPlatform = cpuPlatform, spotModel, accelerators, allDisks, machineType = machineType)
     val locationPolicy = LocationPolicy.newBuilder.addAllAllowedLocations(zones.asJava).build
     val allocationPolicy =
