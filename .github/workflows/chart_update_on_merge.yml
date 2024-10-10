@@ -14,7 +14,7 @@ jobs:
     - name: Clone Cromwell
       uses: actions/checkout@v4
       with:
-        repository: broadinstitute/cromwell
+        repository: deepgenomics/cromwell
         token: ${{ secrets.GITHUB_TOKEN }} # Has to be set at checkout AND later when pushing to work
         path: cromwell
     - id: get-jira-id
@@ -38,7 +38,7 @@ jobs:
     - name: Find Cromwell release number
       run: |
         set -e
-        previous_version=$(curl -X GET https://api.github.com/repos/broadinstitute/cromwell/releases/latest | jq .tag_name | xargs)
+        previous_version=$(curl -X GET https://api.github.com/repos/deepgenomics/cromwell/releases/latest | jq .tag_name | xargs)
         if ! [[ "${previous_version}" =~ ^[0-9][0-9]+$ ]]; then
           exit 1
         fi
