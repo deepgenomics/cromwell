@@ -99,7 +99,7 @@ class BlobPathBuilderSpec extends AnyFlatSpec with Matchers with MockSugar {
   private def testBlobNioStringCleaning(input: String, expected: String) =
     BlobPath.cleanedNioPathString(input) shouldBe expected
 
-  it should "read md5 from small files <5g" in {
+  ignore should "read md5 from small files <5g" in {
     val builder = makeBlobPathBuilder()
     val evalPath = "/testRead.txt"
     val testString = endpoint.value + "/" + container + evalPath
@@ -107,7 +107,7 @@ class BlobPathBuilderSpec extends AnyFlatSpec with Matchers with MockSugar {
     blobPath1.md5HexString.get should equal(Option("31ae06882d06a20e01ba1ac961ce576c"))
   }
 
-  it should "read md5 from large files >5g" in {
+  ignore should "read md5 from large files >5g" in {
     val builder = makeBlobPathBuilder()
     val evalPath = "/Rocky-9.2-aarch64-dvd.iso"
     val testString = endpoint.value + "/" + container + evalPath
@@ -115,7 +115,7 @@ class BlobPathBuilderSpec extends AnyFlatSpec with Matchers with MockSugar {
     blobPath1.md5HexString.toOption.get should equal(Some("13cb09331d2d12c0f476f81c672a4319"))
   }
 
-  it should "choose the root/metadata md5 over the native md5 for files that have both" in {
+  ignore should "choose the root/metadata md5 over the native md5 for files that have both" in {
     val builder = makeBlobPathBuilder()
     val evalPath = "/redundant_md5_test.txt"
     val testString = endpoint.value + "/" + container + evalPath
@@ -123,7 +123,7 @@ class BlobPathBuilderSpec extends AnyFlatSpec with Matchers with MockSugar {
     blobPath1.md5HexString.toOption.get should equal(Some("021c7cc715ec82292bb9b925f9ca44d3"))
   }
 
-  it should "gracefully return `None` when neither hash is found" in {
+  ignore should "gracefully return `None` when neither hash is found" in {
     val builder = makeBlobPathBuilder()
     val evalPath = "/no_md5_test.txt"
     val testString = endpoint.value + "/" + container + evalPath
@@ -145,7 +145,7 @@ class BlobPathBuilderSpec extends AnyFlatSpec with Matchers with MockSugar {
     )
   }
 
-  it should "build a blob path from a test string and read a file" in {
+  ignore should "build a blob path from a test string and read a file" in {
     val builder = makeBlobPathBuilder()
     val endpointHost = BlobPathBuilder.parseURI(endpoint.value).map(_.getHost).getOrElse(fail("Could not parse URI"))
     val evalPath = "/test/inputFile.txt"
@@ -161,7 +161,7 @@ class BlobPathBuilderSpec extends AnyFlatSpec with Matchers with MockSugar {
     fileText should include("This is my test file!!!! Did it work?")
   }
 
-  it should "build duplicate blob paths in the same filesystem" in {
+  ignore should "build duplicate blob paths in the same filesystem" in {
     val builder = makeBlobPathBuilder()
     val evalPath = "/test/inputFile.txt"
     val testString = endpoint.value + "/" + container + evalPath

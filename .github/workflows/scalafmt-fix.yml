@@ -56,9 +56,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           sbt scalafmtAll
-          git config --global user.email "broadbot@broadinstitute.org"
-          git config --global user.name "Broad Bot"
+          git config --global user.email "bot@deepgenomics.com"
+          git config --global user.name "DG Bot"
           git add .
-          git commit -m "ScalaFmt fixup via Broad Bot"
+          git commit -m "ScalaFmt fixup via DG Bot"
           git push origin ${{ steps.determine-branch.outputs.target_branch }}
         working-directory: ${{ github.workspace }}

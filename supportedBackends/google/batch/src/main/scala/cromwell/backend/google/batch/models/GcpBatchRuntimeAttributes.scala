@@ -101,7 +101,9 @@ object GcpBatchRuntimeAttributes {
       )
   private def cpuPlatformValidation(runtimeConfig: Option[Config]): OptionalRuntimeAttributesValidation[String] =
     cpuPlatformValidationInstance
-  private def standardMachineTypeValidation(runtimeConfig: Option[Config]): OptionalRuntimeAttributesValidation[String] =
+  private def standardMachineTypeValidation(
+    runtimeConfig: Option[Config]
+  ): OptionalRuntimeAttributesValidation[String] =
     new StringRuntimeAttributesValidation(StandardMachineTypeKey).optional
   private def gpuTypeValidation(runtimeConfig: Option[Config]): OptionalRuntimeAttributesValidation[GpuType] =
     GpuTypeValidation.optional

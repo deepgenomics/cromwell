@@ -227,12 +227,13 @@ class GcpBatchRequestFactoryImpl()(implicit gcsTransferConfiguration: GcsTransfe
     val computeResource = createComputeResource(cpuCores, memory, gcpBootDiskSizeMb)
     val taskSpec = createTaskSpec(sortedRunnables, computeResource, retryCount, durationInSeconds, allVolumes)
     val taskGroup: TaskGroup = createTaskGroup(taskCount, taskSpec)
-    val machineType = GcpBatchMachineConstraints.machineType(runtimeAttributes.memory,
-                                                             runtimeAttributes.cpu,
-                                                             cpuPlatformOption = runtimeAttributes.cpuPlatform,
-                                                             standardMachineTypeOption = runtimeAttributes.standardMachineType,
-                                                             googleLegacyMachineSelection = false,
-                                                             jobLogger = jobLogger
+    val machineType = GcpBatchMachineConstraints.machineType(
+      runtimeAttributes.memory,
+      runtimeAttributes.cpu,
+      cpuPlatformOption = runtimeAttributes.cpuPlatform,
+      standardMachineTypeOption = runtimeAttributes.standardMachineType,
+      googleLegacyMachineSelection = false,
+      jobLogger = jobLogger
     )
     val instancePolicy =
       createInstancePolicy(cpuPlatform = cpuPlatform, spotModel, accelerators, allDisks, machineType = machineType)
