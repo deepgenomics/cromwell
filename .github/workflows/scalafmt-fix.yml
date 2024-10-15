@@ -49,11 +49,11 @@ jobs:
          ref: ${{ inputs.target-branch }}
       - uses: ./.github/set_up_cromwell_action
         with:
-          cromwell_repo_token: ${{ secrets.BROADBOT_GITHUB_TOKEN }}
+          cromwell_repo_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Run ScalaFmt Fixup
         if: steps.check-comment.outputs.comment-triggered == 'true' || github.event_name == 'workflow_dispatch'
         env:
-          BROADBOT_GITHUB_TOKEN: ${{ secrets.BROADBOT_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           sbt scalafmtAll
           git config --global user.email "broadbot@broadinstitute.org"
