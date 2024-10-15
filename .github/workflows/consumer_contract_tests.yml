@@ -155,7 +155,7 @@ jobs:
           workflow: .github/workflows/publish-contracts.yaml
           repo: broadinstitute/terra-github-workflows
           ref: refs/heads/main
-          token: ${{ secrets.BROADBOT_GITHUB_TOKEN }} # github token for access to kick off a job in the private repo
+          token: ${{ secrets.GITHUB_TOKEN }} # github token for access to kick off a job in the private repo
           inputs: '{
             "run-name": "${{ env.PUBLISH_CONTRACTS_RUN_NAME }}",
             "pact-b64": "${{ needs.cromwell-contract-tests.outputs.pact-b64-drshub }}",
@@ -171,7 +171,7 @@ jobs:
           workflow: .github/workflows/publish-contracts.yaml
           repo: broadinstitute/terra-github-workflows
           ref: refs/heads/main
-          token: ${{ secrets.BROADBOT_GITHUB_TOKEN }} # github token for access to kick off a job in the private repo
+          token: ${{ secrets.GITHUB_TOKEN }} # github token for access to kick off a job in the private repo
           inputs: '{
             "run-name": "${{ env.PUBLISH_CONTRACTS_RUN_NAME }}",
             "pact-b64": "${{ needs.cromwell-contract-tests.outputs.pact-b64-cbas }}",
@@ -193,7 +193,7 @@ jobs:
           workflow: .github/workflows/can-i-deploy.yaml
           repo: broadinstitute/terra-github-workflows
           ref: refs/heads/main
-          token: ${{ secrets.BROADBOT_GITHUB_TOKEN }} # github token for access to kick off a job in the private repo
+          token: ${{ secrets.GITHUB_TOKEN }} # github token for access to kick off a job in the private repo
           inputs: '{
             "run-name": "${{ env.CAN_I_DEPLOY_RUN_NAME }}",
             "pacticipant": "cromwell",
