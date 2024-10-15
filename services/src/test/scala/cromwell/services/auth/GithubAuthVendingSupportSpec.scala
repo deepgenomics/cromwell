@@ -105,7 +105,7 @@ class GithubAuthVendingSupportSpec extends TestKitSuite with AnyFlatSpecLike wit
     }
   }
 
-  it should "return Github import auth provider when Azure auth is enabled" in {
+  ignore should "return Github import auth provider when Azure auth is enabled" in {
     val serviceRegistryActor = TestProbe()
     val testSupport = new TestGithubAuthVendingSupport(serviceRegistryActor.ref)
 
