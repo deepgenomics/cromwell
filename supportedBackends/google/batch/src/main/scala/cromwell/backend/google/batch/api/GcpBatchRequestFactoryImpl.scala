@@ -108,15 +108,20 @@ class GcpBatchRequestFactoryImpl()(implicit gcsTransferConfiguration: GcsTransfe
       .setMinCpuPlatform(cpuPlatform)
       .buildPartial()
 
-    // add GPUs if GPU count is greater than 1
-    if (gpuAccelerators.getCount >= 1) {
-      val instancePolicyGpu = instancePolicy.toBuilder
-      instancePolicyGpu.addAccelerators(gpuAccelerators).build
-      instancePolicyGpu
-    } else {
-      instancePolicy.toBuilder
+    if (gpuAccelerators.getCount < 1) {
+      return instancePolicy.toBuilder
     }
 
+    // add GPUs if GPU count is greater than 1
+    val instancePolicyGpu = instancePolicy.toBuilder
+    val disk = if (instancePolicyGpu.hasBootDisk) {
+      instancePolicyGpu.getBootDisk.toBuilder
+    } else {
+      Disk.newBuilder
+    }
+    disk.setImage("batch-debian")
+    instancePolicyGpu.addAccelerators(gpuAccelerators).setBootDisk(disk).build
+    instancePolicyGpu
   }
 
   private def createNetworkPolicy(networkInterface: NetworkInterface): NetworkPolicy =
