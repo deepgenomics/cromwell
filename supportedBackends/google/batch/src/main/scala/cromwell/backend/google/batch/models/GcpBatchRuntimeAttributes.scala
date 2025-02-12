@@ -158,6 +158,11 @@ object GcpBatchRuntimeAttributes {
           .configDefaultWomValue(runtimeConfig) getOrElse NoAddressDefaultValue
       )
 
+  private def useDockerImageCacheValidation(
+    runtimeConfig: Option[Config]
+  ): OptionalRuntimeAttributesValidation[Boolean] =
+    useDockerImageCacheValidationInstance
+
   def runtimeAttributesBuilder(batchConfiguration: GcpBatchConfiguration): StandardValidatedRuntimeAttributesBuilder = {
     val runtimeConfig = batchConfiguration.runtimeConfig
     StandardValidatedRuntimeAttributesBuilder
@@ -175,6 +180,7 @@ object GcpBatchRuntimeAttributes {
         preemptibleValidation(runtimeConfig),
         memoryValidation(runtimeConfig),
         bootDiskSizeValidation(runtimeConfig),
+        useDockerImageCacheValidation(runtimeConfig),
         checkpointFileValidationInstance,
         dockerValidation,
         containerValidation
