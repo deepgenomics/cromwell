@@ -119,7 +119,7 @@ class GcpBatchRequestFactoryImpl()(implicit gcsTransferConfiguration: GcsTransfe
     } else {
       Disk.newBuilder
     }
-    disk.setImage("batch-debian")
+    disk.setImage("batch-cos")
     instancePolicyGpu.addAccelerators(gpuAccelerators).setBootDisk(disk).build
     instancePolicyGpu
   }
