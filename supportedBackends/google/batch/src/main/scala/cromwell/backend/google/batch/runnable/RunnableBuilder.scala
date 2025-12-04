@@ -158,17 +158,17 @@ object RunnableBuilder extends BatchUtilityConversions {
       .setImageUri(docker)
       .setEntrypoint(jobShell)
       .addCommands(scriptContainerPath)
-      .setOptions(if (fuseEnabled) "--privileged" else "") // GCSFUSE requires container run as --privileged
 
+    val sharedOptions = if (fuseEnabled) "--privileged" else ""
     // Set the shared memory size to 80% of the memory requested
     // if this leaves less than 2GB of memory left over, leave it as the memory - 2GB
     // Required for certain Python tools [AN-527]
     val memoryMb = toMemMib(memory)
     val containerWithOpt =
       if (memoryMb >= 10000) {
-        baseContainer.setOptions(s"--shm-size=${memoryMb * 0.8}m")
+        baseContainer.setOptions(s"--shm-size=${memoryMb * 0.8}m" + s" $sharedOptions")
       } else {
-        baseContainer.setOptions(s"--shm-size=${math.max(memoryMb - 2000, 64)}m")
+        baseContainer.setOptions(s"--shm-size=${math.max(memoryMb - 2000, 64)}m" + s" $sharedOptions")
       }
 
     val container = (dockerhubCredentials._1, dockerhubCredentials._2) match {
