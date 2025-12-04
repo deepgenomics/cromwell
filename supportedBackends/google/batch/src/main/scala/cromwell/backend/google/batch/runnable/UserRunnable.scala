@@ -13,6 +13,7 @@ trait UserRunnable {
       jobShell = "/bin/bash",
       volumes = volumes,
       dockerhubCredentials = createParameters.dockerhubCredentials,
+      fuseEnabled = createParameters.fuseEnabled,
       memory = createParameters.runtimeAttributes.memory
     )
 
