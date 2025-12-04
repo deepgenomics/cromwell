@@ -158,7 +158,7 @@ object RunnableBuilder extends BatchUtilityConversions {
       .setImageUri(docker)
       .setEntrypoint(jobShell)
       .addCommands(scriptContainerPath)
-      .setOptions(if(fuseEnabled) "--privileged" else "") // GCSFUSE requires container run as --privileged
+      .setOptions(if (fuseEnabled) "--privileged" else "") // GCSFUSE requires container run as --privileged
 
     // Set the shared memory size to 80% of the memory requested
     // if this leaves less than 2GB of memory left over, leave it as the memory - 2GB
